@@ -30,7 +30,7 @@ export class WebSocketClient {
     } else if (environment.isNode) {
       try {
         // Try to load ws package
-        this.WebSocketImpl = (globalThis as any).require('ws');
+        this.WebSocketImpl = require('ws');
       } catch (error) {
         this.WebSocketImpl = null;
       }

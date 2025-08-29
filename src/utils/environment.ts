@@ -37,7 +37,7 @@ export const environment = {
     if (this.isNode) {
       try {
         // Dynamic require to avoid bundling ws package in browser builds
-        const WebSocket = (globalThis as any).require?.('ws');
+        const WebSocket = require('ws');
         return typeof WebSocket === 'function';
       } catch {
         return false;

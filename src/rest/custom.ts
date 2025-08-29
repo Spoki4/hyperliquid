@@ -15,8 +15,8 @@ export class CustomOperations {
   private infoApi: InfoAPI;
   private wallet?: ethers.Wallet;
   private symbolConversion: SymbolConversion;
-  private walletAddress: string | null;
   private parent?: Hyperliquid;
+  private _walletAddress: string | null;
 
   constructor(
     exchangeOrParent: ExchangeAPI | Hyperliquid,
@@ -31,9 +31,7 @@ export class CustomOperations {
       this.exchange = exchangeOrParent.exchange;
       this.infoApi = exchangeOrParent.info;
       this.symbolConversion = exchangeOrParent.symbolConversion;
-      this.walletAddress = exchangeOrParent.isAuthenticated()
-        ? exchangeOrParent.isAuthenticated().toString()
-        : null;
+      this._walletAddress = null;
     } else {
       // Original constructor
       this.exchange = exchangeOrParent;
@@ -42,8 +40,12 @@ export class CustomOperations {
         this.wallet = new ethers.Wallet(privateKeyOrSymbolConversion);
       }
       this.symbolConversion = symbolConversionOrWalletAddress as SymbolConversion;
-      this.walletAddress = walletAddress || null;
+      this._walletAddress = walletAddress || null;
     }
+  }
+
+  private get walletAddress(): string | null {
+    return this._walletAddress || this.parent?.isAuthenticated()?.toString() || null;
   }
 
   private getUserAddress(): string {

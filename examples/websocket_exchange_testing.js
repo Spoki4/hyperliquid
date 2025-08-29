@@ -35,8 +35,8 @@ if (fs.existsSync(envPath)) {
 // Configuration
 const TESTNET = process.env.HYPERLIQUID_TESTNET !== 'false';
 const PRIVATE_KEY = process.env.HYPERLIQUID_PRIVATE_KEY;
-const MAIN_ACCOUNT = '';
-const CLOID = '';
+const MAIN_ACCOUNT = process.env.HYPERLIQUID_MAIN_ACCOUNT || '';
+const CLOID = '123';
 
 if (!PRIVATE_KEY) {
   console.error('❌ Error: HYPERLIQUID_PRIVATE_KEY environment variable is required');
